@@ -1,13 +1,9 @@
 #!/usr/bin/bash
 
 function init_chia {
-  git clone --branch ${branch} https://github.com/Chia-Network/chia-blockchain.git /chia-blockchain
   cd /chia-blockchain
-  
-  git submodule update --init mozilla-ca
-
-  chmod +x install.sh
-  /usr/bin/sh ./install.sh
+  git pull
+  bash ./install.sh
 
   . ./activate
   chia init
@@ -25,7 +21,7 @@ function init_chia {
 
 function init_keys {
   if [[ ${keys} == "generate" ]]; then
-    echo "To use your own keys pass them as a text file."
+    echo "To use your own keys pass them as a text file. Generating keys now."
     chia keys generate
   else
     chia keys add -f ${keys}
@@ -33,9 +29,6 @@ function init_keys {
 }
 
 function init_plots {
-  if [[ ! "$(ls -A /plots)" ]]; then
-    echo "Plots directory appears to be empty and you have not specified another, try mounting a plot directory with the docker -v command "
-  fi
   chia plots add -d /plots
 }
 
