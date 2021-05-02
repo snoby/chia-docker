@@ -2,35 +2,29 @@
 
 ## Basic Startup
 ```
-docker run --name <container-name> -d ghcr.io/chia-network/chia:latest
+docker run --name <container-name> -d ghcr.io/chia-network/chia:latest -e start="farmer"
 (optional -v /path/to/plots:plots)
 ```
 
 ## Configuration
 
-You can modify the behavior of your Chia container by setting specific environment variables.
+You can modify the behavior of your Chia container by setting specific environment variables. By default it initializes the chia network only but doesn't start anything.
 
-To use your own keys pass as arguments on startup (post 1.0.2 pre 1.0.2 must manually pass as shown below)
+To use your own keys pass as arguments on startup
 ```
--v /path/to/key/file:/path/in/container -e keys="/path/in/container"
+-v /path/to/mnemonic.txt:/root/.chia/mnemonic.txt -e keys="/root/.chia/mnemonic.txt"
 ```
-or pass keys into the running container
-```
-docker exec -it <container-name> venv/bin/chia keys add
-```
-alternatively you can pass in your local keychain, if you have previously deployed chia with these keys on the host machine
-```
--v ~/.local/share/python_keyring/:/root/.local/share/python_keyring/
-```
+
+Possible start environment values are [all|node|harvester|farmer|farmer-no-wallet|farmer-only|timelord|timelord-only|timelord-launcher-only|wallet|wallet-only|introducer|simulator]
 
 To start a farmer only node pass
 ```
--e farmer="true"
+-e start="farmer"
 ```
 
 To start a harvester only node pass
 ```
--e harvester="true" -e farmer_address="addres.of.farmer" -e farmer_port="portnumber"
+-e start="harvester" -e farmer_address="addres.of.farmer" -e farmer_port="portnumber"
 ```
 
 #### or run commands externally with venv (this works for most chia XYZ commands)
