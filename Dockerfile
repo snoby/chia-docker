@@ -4,8 +4,7 @@ EXPOSE 8555
 EXPOSE 8444
 
 ENV keys="generate"
-ENV harvester="false"
-ENV farmer="false"
+ENV start="null"
 ENV plots_dir="/plots"
 ENV farmer_address="null"
 ENV farmer_port="null"
