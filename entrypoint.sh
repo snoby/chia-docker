@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-function init_chia {
+init_chia () {
   cd /chia-blockchain
   git fetch
   git checkout latest
@@ -12,8 +12,6 @@ function init_chia {
 
   . ./activate
   chia init
-
-  sed -i 's/localhost/127.0.0.1/g' ~/.chia/mainnet/config/config.yaml
   
   if [[ ${testnet} == "true" ]]; then
     if [[ -z $full_node_port || $full_node_port == "null" ]]; then
@@ -24,7 +22,7 @@ function init_chia {
   fi
 }
 
-function init_keys {
+init_keys () {
   if [[ ${keys} == "generate" ]]; then
     echo "To use your own keys pass them as a text file. Generating keys now."
     chia keys generate
@@ -33,7 +31,7 @@ function init_keys {
   fi
 }
 
-function init_plots {
+init_plots () {
   chia plots add -d /plots
 }
 
