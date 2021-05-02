@@ -1,21 +1,31 @@
 FROM ubuntu:latest
 
-EXPOSE 8555
-EXPOSE 8444
+# mainnet
+EXPOSE 8444/tcp
+# testnet
+EXPOSE 58444/tcp
+# RPC interface
+EXPOSE 8555/tcp
+
+VOLUME /plots
+VOLUME /plotting
+VOLUME /root/.chia
 
 ENV start="farmer"
 ENV keys="generate"
-ENV plots_dir="/plots"
 ENV farmer_address="null"
 ENV farmer_port="null"
 ENV full_node_port="null"
 ENV testnet="false"
 ENV branch="main"
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y curl jq python3 ansible tar bash ca-certificates git openssl unzip wget python3-pip sudo acl build-essential python3-dev python3.8-venv python3.8-distutils apt nfs-common python-is-python3 vim
+RUN DEBIAN_FRONTEND=noninteractive 
+RUN apt-get update
+RUN apt-get install -y \
+curl jq ansible tar bash ca-certificates git openssl unzip wget sudo acl build-essential apt nfs-common vim \
+python3 python3-pip python3-dev python3.8-venv python3.8-distutils python-is-python3
 
-WORKDIR /chia-blockchain
-RUN mkdir /plots
 ADD ./entrypoint.sh entrypoint.sh
 
+WORKDIR /chia-blockchain
 ENTRYPOINT ["bash", "./entrypoint.sh"]

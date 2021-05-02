@@ -1,4 +1,4 @@
-# Fork of the official Chia Docker container
+# Chia Docker container
 
 ## Basic Startup
 ```
