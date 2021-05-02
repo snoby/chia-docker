@@ -2,8 +2,13 @@
 
 function init_chia {
   cd /chia-blockchain
-  git pull
-  bash ./install.sh
+  git fetch
+  git checkout latest
+  git reset --hard FETCH_HEAD
+  git status
+  echo "git status should say 'nothing to commit, working tree clean'"
+
+  sh ./install.sh
 
   . ./activate
   chia init

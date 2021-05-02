@@ -17,7 +17,6 @@ ENV farmer_address="null"
 ENV farmer_port="null"
 ENV full_node_port="null"
 ENV testnet="false"
-ENV branch="main"
 
 RUN DEBIAN_FRONTEND=noninteractive 
 RUN apt-get update
@@ -26,8 +25,8 @@ curl jq ansible tar bash ca-certificates git openssl unzip wget sudo acl build-e
 python3 python3-pip python3-dev python3.8-venv python3.8-distutils python-is-python3
 
 RUN git clone https://github.com/Chia-Network/chia-blockchain.git -b latest --recurse-submodules /chia-blockchain
-RUN cd /chia-blockchain && bash ./install.sh
+RUN cd /chia-blockchain && sh ./install.sh
 
 WORKDIR /chia-blockchain
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["bash", "/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["sh", "/usr/local/bin/entrypoint.sh"]
