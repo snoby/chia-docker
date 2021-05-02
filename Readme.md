@@ -2,7 +2,7 @@
 
 ## Basic Startup
 ```
-docker run --name <container-name> -d ghcr.io/gldecurtins/chia-docker:latest -e start="farmer"
+docker run --name <container-name> -d gldecurtins/chia-docker:latest
 (optional -v /path/to/plots:plots)
 ```
 
