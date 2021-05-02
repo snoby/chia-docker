@@ -8,6 +8,16 @@ docker run --name <container-name> -d gldecurtins/chia-docker:latest
 
 ## Configuration
 
+Expose TCP ports:
+8444 - mainnet
+58444 - testnet
+8555 - RPC interface
+
+Map volumes:
+/root/.chia - blockchain and config
+/plots - plots on storage
+/plotting - fast storage for plotting
+
 You can modify the behavior of your Chia container by setting specific environment variables. By default it initializes the chia network only but doesn't start anything.
 
 To use your own keys pass as arguments on startup

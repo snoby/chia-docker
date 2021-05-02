@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 function init_chia {
   git clone --branch ${branch} https://github.com/Chia-Network/chia-blockchain.git /chia-blockchain
   cd /chia-blockchain
