@@ -1,7 +1,15 @@
 function init_chia {
+  git clone --branch ${branch} https://github.com/Chia-Network/chia-blockchain.git /chia-blockchain
   cd /chia-blockchain
+  
+  git submodule update --init mozilla-ca
+
+  chmod +x install.sh
+  /usr/bin/sh ./install.sh
+
   . ./activate
   chia init
+  
   sed -i 's/localhost/127.0.0.1/g' ~/.chia/mainnet/config/config.yaml
   
   if [[ ${testnet} == "true" ]]; then

@@ -1,8 +1,8 @@
-# Official Chia Docker Container
+# Fork of the official Chia Docker container
 
 ## Basic Startup
 ```
-docker run --name <container-name> -d ghcr.io/chia-network/chia:latest -e start="farmer"
+docker run --name <container-name> -d ghcr.io/gldecurtins/chia-docker:latest -e start="farmer"
 (optional -v /path/to/plots:plots)
 ```
 
