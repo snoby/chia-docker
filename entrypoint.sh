@@ -8,7 +8,7 @@ init_chia () {
   git status
   echo "git status should say 'nothing to commit, working tree clean'"
 
-  sh ./install.sh
+  bash ./install.sh
 
   . ./activate
   chia init
