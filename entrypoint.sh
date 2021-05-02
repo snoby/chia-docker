@@ -16,7 +16,7 @@ function init_chia {
     if [[ -z $full_node_port || $full_node_port == "null" ]]; then
       chia configure --set-fullnode-port 58444
     else
-      chia configure --set-fullnode-port ${var.full_node_port}
+      chia configure --set-fullnode-port ${full_node_port}
     fi
   fi
 }

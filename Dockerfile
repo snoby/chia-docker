@@ -25,7 +25,5 @@ RUN apt-get install -y \
 curl jq ansible tar bash ca-certificates git openssl unzip wget sudo acl build-essential apt nfs-common vim \
 python3 python3-pip python3-dev python3.8-venv python3.8-distutils python-is-python3
 
-ADD ./entrypoint.sh entrypoint.sh
-
-WORKDIR /chia-blockchain
-ENTRYPOINT ["bash", "./entrypoint.sh"]
+COPY entrypoint.sh /chia-blockchain/entrypoint.sh
+ENTRYPOINT ["bash", "/chia-blockchain/entrypoint.sh"]
