@@ -43,15 +43,23 @@ init_plots () {
   chia plots add -d /plots
 }
 
+init_cron () {
+  if [[ ${plots_cron_enable} != "false" ]]; then
+    (crontab -l 2>/dev/null; echo "${plots_cron_interval} /usr/local/bin/create_plot.sh") | crontab -
+  fi
+}
+
 case ${start} in
   null|none|plotter)
     init_chia
+    init_cron
   ;;
   *)
     init_chia
     init_network
     init_keys
     init_plots
+    init_cron
     chia start ${start}
   ;;
 esac
