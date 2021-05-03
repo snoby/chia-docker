@@ -32,6 +32,14 @@ Possible start values are
 - introducer
 - simulator
 
+Other environment variables
+- wallet_fingerprint - (integer) Required for plotting, retrieve via *chia keys show*
+- farmer_public_key - (string) Required for plotting, retrieve via *chia keys show*
+- pool_public_key - (string) Required for plotting, retrieve via *chia keys show*
+- plots_maximum - (integer) Number of concurrent plots
+- plots_cron_enable - (boolean) Enable the continuous plotting
+- plots_cron_interval - (string) Set the crontab interval, e.g. "@hourly", "*/15 * * * *" 
+
 ### Examples
 
 Plotter startup, prepares the environment without blockchain and keys. Plotting task has to be triggered manually, output to be found in the plotting directory.
