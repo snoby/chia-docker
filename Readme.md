@@ -50,7 +50,7 @@ docker run --name <container-name> \
     --env pool_public_key="" \
     -d gldecurtins/chia-docker:latest
 
-docker exec -it <container-name> /usr/local/bin/create_plot.sh
+docker exec -d <container-name> /usr/local/bin/create_plot.sh
 ```
 
 Full node startup on mainnet, generating keys
