@@ -1,11 +1,6 @@
 # Chia Docker container
 
-## Basic Startup
-```
-docker run --name <container-name> -d gldecurtins/chia-docker:latest
-(optional -v /path/to/plots:plots)
-```
-
+## Basics
 You can modify the behavior of your Chia container by setting specific environment variables.
 Every time the container starts it will try to fetch the latest stable version of the Chia Network code and update its dependencies.
 By default this container tries to join the Chia Network as a full node.
@@ -39,19 +34,24 @@ Possible start values are
 
 ### Examples
 
-To use your own keys pass as arguments on startup
+Plotter startup, prepares the environment without blockchain and keys. Plotting task has to be triggered manually.
 ```
--v /path/to/mnemonic.txt:/root/.chia/mnemonic.txt -e keys="/root/.chia/mnemonic.txt"
-```
-
-To start a farmer only node pass
-```
--e start="farmer"
+docker run --name <container-name> --env start="plotter" --volume /path/to/plots:/plots --volume /path/to/fast/storage:/plotting -d gldecurtins/chia-docker:latest
 ```
 
-To start a harvester only node pass
+Full node startup on mainnet, generating keys
 ```
--e start="harvester" -e farmer_address="addres.of.farmer" -e farmer_port="portnumber"
+docker run --name <container-name> --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/plots -d gldecurtins/chia-docker:latest
+```
+
+Full node startup on testnet, generating keys
+```
+docker run --name <container-name> --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/plots --env testnet="true" -d gldecurtins/chia-docker:latest
+```
+
+Full node startup on mainnet, use existing keys. E.g. store your words into /path/to/.chia/mnemonic.txt. 
+```
+docker run --name <container-name> --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/plots --env keys="/root/.chia/mnemonic.txt" -d gldecurtins/chia-docker:latest
 ```
 
 Run commands externally with venv (this works for most chia XYZ commands)
@@ -62,14 +62,4 @@ docker exec -it <container-name> venv/bin/chia plots add -d /plots
 Status from outside the container
 ```
 docker exec -it <container-name> venv/bin/chia show -s -c
-```
-
-Connect to testnet
-```
-docker run -d -e testnet=true --name <container-name> gldecurtins/chia-docker:latest
-```
-
-Need a wallet?
-```
-docker exec -it <container-name> venv/bin/chia wallet show (follow the prompts)
 ```

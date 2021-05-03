@@ -13,9 +13,9 @@ VOLUME /root/.chia
 
 ENV start="farmer"
 ENV keys="generate"
-ENV farmer_address="null"
-ENV farmer_port="null"
-ENV full_node_port="null"
+ENV farmer_address="localhost"
+ENV farmer_port="8444"
+ENV full_node_port="8444"
 ENV testnet="false"
 
 RUN DEBIAN_FRONTEND=noninteractive 
