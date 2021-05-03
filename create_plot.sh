@@ -3,7 +3,7 @@
 running_plotters=`ps -ef | grep "plots create" | grep -v "grep" | wc -l`
 
 # maximum_plotters is set through Docker environment variables
-if [[ ${running_plotters} -gt ${maximum_plotters} ]];then
+if [[ ${running_plotters} -ge ${maximum_plotters} ]];then
 	echo ${running_plotters} plots creating
 else
 	plot_date=`date +%Y-%m-%d-%H-%M`
