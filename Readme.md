@@ -37,8 +37,6 @@ Other environment variables
 - farmer_public_key - (string) Required for plotting, retrieve via *chia keys show*
 - pool_public_key - (string) Required for plotting, retrieve via *chia keys show*
 - plots_maximum - (integer) Number of concurrent plots
-- plots_cron_enable - (boolean) Enable the continuous plotting
-- plots_cron_interval - (string) Set the crontab interval, e.g. "@hourly", "*/15 * * * *" 
 
 ### Examples
 
