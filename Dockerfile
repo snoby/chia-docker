@@ -21,12 +21,14 @@ ENV wallet_fingerprint=
 ENV farmer_public_key=""
 ENV pool_public_key=""
 ENV plot_size=32
-ENV maximum_plotters=1
+ENV plots_maximum=1
+ENV plots_cron_enable="false"
+ENV plots_cron_interval="@hourly"
 
 RUN DEBIAN_FRONTEND=noninteractive 
 RUN apt-get update
 RUN apt-get install -y \
-    curl jq ansible tar bash ca-certificates git openssl unzip wget sudo acl build-essential apt nfs-common vim \
+    curl jq ansible tar bash ca-certificates git openssl unzip wget sudo acl build-essential apt nfs-common vim cron \
     python3.8 python3.8-dev python3.8-venv python3.8-distutils python-is-python3
 
 RUN git clone https://github.com/Chia-Network/chia-blockchain.git -b latest --recurse-submodules /chia-blockchain
