@@ -6,7 +6,6 @@ update_chia () {
   git checkout latest
   git reset --hard FETCH_HEAD
   git status
-  echo "git status should say 'nothing to commit, working tree clean'"
   version_after_fetch=`git log -n1 --format=format:"%H"`
 
   if [[ ${version_before_fetch} != ${version_after_fetch} ]]; then

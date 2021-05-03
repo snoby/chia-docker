@@ -36,22 +36,29 @@ Possible start values are
 
 Plotter startup, prepares the environment without blockchain and keys. Plotting task has to be triggered manually.
 ```
-docker run --name <container-name> --env start="plotter" --volume /path/to/plots:/plots --volume /path/to/fast/storage:/plotting -d gldecurtins/chia-docker:latest
+docker run --name <container-name> -d gldecurtins/chia-docker:latest \
+    --volume /path/to/plots:/plots --volume /path/to/fast/storage:/plotting \
+    --env start="plotter"
 ```
 
 Full node startup on mainnet, generating keys
 ```
-docker run --name <container-name> --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/plots -d gldecurtins/chia-docker:latest
+docker run --name <container-name> -d gldecurtins/chia-docker:latest \
+    --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/plots 
 ```
 
 Full node startup on testnet, generating keys
 ```
-docker run --name <container-name> --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/plots --env testnet="true" -d gldecurtins/chia-docker:latest
+docker run --name <container-name> -d gldecurtins/chia-docker:latest \
+    --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/plots \
+    --env testnet="true" 
 ```
 
 Full node startup on mainnet, use existing keys. E.g. store your words into /path/to/.chia/mnemonic.txt. 
 ```
-docker run --name <container-name> --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/plots --env keys="/root/.chia/mnemonic.txt" -d gldecurtins/chia-docker:latest
+docker run --name <container-name> -d gldecurtins/chia-docker:latest \
+    --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/plots \
+    --env keys="/root/.chia/mnemonic.txt" 
 ```
 
 Run commands externally with venv (this works for most chia XYZ commands)
