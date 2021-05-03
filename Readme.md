@@ -34,12 +34,17 @@ Possible start values are
 
 ### Examples
 
-Plotter startup, prepares the environment without blockchain and keys. Plotting task has to be triggered manually.
+Plotter startup, prepares the environment without blockchain and keys. Plotting task has to be triggered manually, output to be found in the plotting directory.
 ```
 docker run --name <container-name> \
     --volume /path/to/plots:/plots --volume /path/to/fast/storage:/plotting \
     --env start="plotter" \
+    --env wallet_fingerprint= \
+    --env farmer_public_key="" \
+    --env pool_public_key="" \
     -d gldecurtins/chia-docker:latest
+
+docker exec -it <container-name> /usr/local/bin/create_plot.sh
 ```
 
 Full node startup on mainnet, generating keys
