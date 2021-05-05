@@ -28,4 +28,5 @@ else
 		--num_threads ${plots_num_threads} \
 		--farmer_public_key ${plots_farmer_public_key} \
 		--pool_public_key ${plots_pool_public_key} &> ${plots_log_dir}/plot-k${plots_size}-${plots_date}.txt &
+	echo "Creating plot ${plots_tmp_dir}" >> /proc/1/fd/1
 fi
