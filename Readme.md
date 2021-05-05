@@ -42,7 +42,7 @@ Other environment variables
 
 ### Examples
 
-Plotter startup, prepares the environment without blockchain and keys. Plotting task has to be triggered manually, output to be found in the plotting directory.
+Plotter startup, prepares the environment without blockchain and keys.
 ```
 docker run --name <container-name> \
     --volume /path/to/plots:/plots --volume /path/to/fast/storage:/plotting \
@@ -50,8 +50,17 @@ docker run --name <container-name> \
     --env plots_farmer_public_key="" \
     --env plots_pool_public_key="" \
     -d gldecurtins/chia-docker:latest
+```
 
+Plotting task has to be triggered manually, output to be found in the plotting directory.
+```
 docker exec -d <container-name> /usr/local/bin/create_plot.sh
+```
+
+Plotting with multiple tasks, using different storage devices. Volumes to be mapped accordingly.
+```
+docker exec -d <container-name> /usr/local/bin/create_plot.sh /storage1
+docker exec -d <container-name> /usr/local/bin/create_plot.sh /storage2
 ```
 
 Full node startup on mainnet, generating keys
