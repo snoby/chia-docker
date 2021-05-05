@@ -15,7 +15,7 @@ Expose TCP ports:
 Map volumes:
 - /root/.chia - blockchain, config and potentially keys (mnemonic.txt)
 - /plots - plots on storage
-- /plotting - fast storage for plotting
+- /plotting - fast storage for plotting, add one per device
 
 Possible start values are
 - all
@@ -33,10 +33,12 @@ Possible start values are
 - simulator
 
 Other environment variables
-- wallet_fingerprint - (integer) Required for plotting, retrieve via *chia keys show*
-- farmer_public_key - (string) Required for plotting, retrieve via *chia keys show*
-- pool_public_key - (string) Required for plotting, retrieve via *chia keys show*
-- plots_maximum - (integer) Number of concurrent plots
+- plots_size - (integer) Default: 32
+- plots_num_threads - (integer) Default: 2
+- plots_farmer_public_key - (string) Required for plotting, retrieve via *chia keys show*
+- plots_pool_public_key - (string) Required for plotting, retrieve via *chia keys show*
+- plots_tmp_dir - (string) Default: "/plotting", path to temporary plotting directory
+- plots_final_dir - (string) Default: "/plots", path to final plots directory
 
 ### Examples
 
@@ -45,9 +47,8 @@ Plotter startup, prepares the environment without blockchain and keys. Plotting 
 docker run --name <container-name> \
     --volume /path/to/plots:/plots --volume /path/to/fast/storage:/plotting \
     --env start="plotter" \
-    --env wallet_fingerprint= \
-    --env farmer_public_key="" \
-    --env pool_public_key="" \
+    --env plots_farmer_public_key="" \
+    --env plots_pool_public_key="" \
     -d gldecurtins/chia-docker:latest
 
 docker exec -d <container-name> /usr/local/bin/create_plot.sh

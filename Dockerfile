@@ -7,9 +7,9 @@ EXPOSE 58444/tcp
 # RPC interface
 EXPOSE 8555/tcp
 
+VOLUME /root/.chia
 VOLUME /plots
 VOLUME /plotting
-VOLUME /root/.chia
 
 ENV start="farmer"
 ENV keys="generate"
@@ -17,11 +17,12 @@ ENV farmer_address="localhost"
 ENV farmer_port=8444
 ENV full_node_port=8444
 ENV testnet="false"
-ENV wallet_fingerprint=
-ENV farmer_public_key=""
-ENV pool_public_key=""
-ENV plot_size=32
-ENV plots_maximum=1
+ENV plots_size=32
+ENV plots_num_threads=2
+ENV plots_farmer_public_key=""
+ENV plots_pool_public_key=""
+ENV plots_tmp_dir="/plotting"
+ENV plots_final_dir="/plots"
 
 RUN DEBIAN_FRONTEND=noninteractive 
 RUN apt-get update
