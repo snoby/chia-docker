@@ -20,7 +20,7 @@ else
 
     mkdir ${plots_tmp_dir}/${plots_id}
 
-    cd /chia-blockchain
+    cd ~/chia-blockchain
     . ./activate
 
     # Create new plot
