@@ -3,8 +3,11 @@
 # Usage: create_plot.sh <tmp_dir>
 #   Script will use system value plots_tmp_dir in case tmp_dir not passed
 #   as first command line argument
+#   Script will use system value plots_final_dir in case final_dir not passed
+#   as second command line argument
 
 [ -n "$1" ] && plots_tmp_dir=$1
+[ -n "$2" ] && plots_final_dir=$2
 
 plots_creating=`ps -ef | grep "plots create" | grep "${plots_tmp_dir}" | grep -v "grep" | wc -l`
 
@@ -21,7 +24,7 @@ else
     . ./activate
 
     # Create new plot
-    echo "Creating plot ${plots_tmp_dir}" >> /proc/1/fd/1
+    echo "Creating plot ${plots_tmp_dir}/${plots_id}. Final directory ${plots_final_dir}." >> /proc/1/fd/1
     chia plots create \
         --tmp_dir ${plots_tmp_dir}/${plots_id} \
         --final_dir ${plots_final_dir} \
@@ -31,7 +34,7 @@ else
         --pool_public_key ${plots_pool_public_key} > ${plots_tmp_dir}/${plots_id}.txt
 
     if [[ ${plots_curl_upload} == "true" ]]; then
-        echo "Uploading plot ${plots_final_dir}/${plots_id}-*.plot to ${plots_curl_target}" >> /proc/1/fd/1
+        echo "Uploading plot ${plots_final_dir}/${plots_id}-*.plot to ${plots_curl_target}." >> /proc/1/fd/1
         curl --upload-file ${plots_final_dir}/${plots_id}-*.plot ${plots_curl_target}
     fi
 fi

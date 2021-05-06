@@ -61,8 +61,8 @@ docker exec -d <container-name> /usr/local/bin/create_plot.sh
 
 Plotting with multiple tasks, using different storage devices. Volumes to be mapped accordingly.
 ```
-docker exec -d <container-name> /usr/local/bin/create_plot.sh /storage1
-docker exec -d <container-name> /usr/local/bin/create_plot.sh /storage2
+docker exec -d <container-name> /usr/local/bin/create_plot.sh /storage1 /plots/storage1
+docker exec -d <container-name> /usr/local/bin/create_plot.sh /storage2 /plots/storage2
 ```
 
 Full node startup on mainnet, generating keys
