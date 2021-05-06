@@ -23,6 +23,7 @@ ENV plots_farmer_public_key=""
 ENV plots_pool_public_key=""
 ENV plots_tmp_dir="/plotting"
 ENV plots_final_dir="/plots"
+ENV plots_options=""
 ENV plots_curl_upload="false"
 ENV plots_curl_target=""
 

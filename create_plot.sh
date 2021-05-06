@@ -31,7 +31,8 @@ else
         --size ${plots_size} \
         --num_threads ${plots_num_threads} \
         --farmer_public_key ${plots_farmer_public_key} \
-        --pool_public_key ${plots_pool_public_key} > ${plots_tmp_dir}/${plots_id}.txt
+        --pool_public_key ${plots_pool_public_key} \
+        ${plots_options} > ${plots_tmp_dir}/${plots_id}.txt
 
     if [[ ${plots_curl_upload} == "true" ]]; then
         echo "Uploading plot ${plots_final_dir}/${plots_id}-*.plot to ${plots_curl_target}." >> /proc/1/fd/1

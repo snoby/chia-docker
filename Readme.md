@@ -39,6 +39,7 @@ Other environment variables
 - plots_pool_public_key - (string) Required for plotting, retrieve via *chia keys show*
 - plots_tmp_dir - (string) Default: "/plotting", path to temporary plotting directory
 - plots_final_dir - (string) Default: "/plots", path to final plots directory
+- plots_options - (string) Can be used to specify plots options like "--nobitfield"
 - plots_curl_upload - (string) Default: "false", set to true if curl shall upload file to plots_curl_target
 - plots_curl_target - (string) Target for curl, e.g. ftp://anonymous@farmer/plots
 
