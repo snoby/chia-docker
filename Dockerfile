@@ -32,10 +32,10 @@ RUN apt-get install -y \
     curl jq ansible tar bash ca-certificates git openssl unzip wget sudo acl build-essential apt nfs-common vim \
     python3.8 python3.8-dev python3.8-venv python3.8-distutils python-is-python3
 
-RUN git clone https://github.com/Chia-Network/chia-blockchain.git -b latest --recurse-submodules /root/chia-blockchain
-RUN cd /root/chia-blockchain && bash ./install.sh
+RUN git clone https://github.com/Chia-Network/chia-blockchain.git -b latest --recurse-submodules /chia-blockchain
+RUN cd /chia-blockchain && bash ./install.sh
 
-WORKDIR /root/chia-blockchain
+WORKDIR /chia-blockchain
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY create_plot.sh /usr/local/bin/create_plot.sh
