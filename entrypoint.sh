@@ -14,7 +14,7 @@ update_chia () {
 }
 
 init_chia () {
-    cd /chia-blockchain
+    cd ${chia_dir}
     update_chia
     . ./activate
     chia init
@@ -40,7 +40,7 @@ init_keys () {
 }
 
 init_plots () {
-    chia plots add -d /plots
+    chia plots add -d ${plots_final_dir}
 }
 
 case ${start} in

@@ -8,9 +8,10 @@ EXPOSE 58444/tcp
 EXPOSE 8555/tcp
 
 VOLUME /root/.chia
-VOLUME /plots
-VOLUME /plotting
+VOLUME /opt/chia_plots_tmp
+VOLUME /opt/chia_plots_final
 
+ENV chia_dir="/opt/chia-blockchain"
 ENV start="farmer"
 ENV keys="generate"
 ENV farmer_address="localhost"
@@ -21,21 +22,22 @@ ENV plots_size=32
 ENV plots_num_threads=2
 ENV plots_farmer_public_key=""
 ENV plots_pool_public_key=""
-ENV plots_tmp_dir="/plotting"
-ENV plots_final_dir="/plots"
+ENV plots_tmp_dir="/opt/chia_plots_tmp"
+ENV plots_final_dir="/opt/chia_plots_final"
 ENV plots_options=""
+ENV prevent_sleep=""
 ENV plots_curl_upload="false"
 ENV plots_curl_target=""
 
 RUN apt-get update
 RUN apt-get install -y \
-    curl jq ansible tar bash ca-certificates git openssl unzip wget sudo acl build-essential apt nfs-common vim \
+    curl jq ansible tar bash ca-certificates git openssl unzip wget sudo acl build-essential apt nfs-common vim htop \
     python3.8 python3.8-dev python3.8-venv python3.8-distutils python-is-python3
 
-RUN git clone https://github.com/Chia-Network/chia-blockchain.git -b latest --recurse-submodules /chia-blockchain
-RUN cd /chia-blockchain && bash ./install.sh
+RUN git clone https://github.com/Chia-Network/chia-blockchain.git -b latest --recurse-submodules /opt/chia-blockchain
+RUN cd /opt/chia-blockchain && bash ./install.sh
 
-WORKDIR /chia-blockchain
+WORKDIR /opt/chia-blockchain
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY create_plot.sh /usr/local/bin/create_plot.sh
