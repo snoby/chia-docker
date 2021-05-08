@@ -26,7 +26,6 @@ ENV plots_tmp_dir="/opt/chia-plots/tmp"
 ENV plots_final_dir="/opt/chia-plots/final"
 ENV plots_options=""
 ENV prevent_sleep=""
-ENV plots_curl_upload="false"
 ENV plots_curl_target=""
 
 RUN apt-get update
