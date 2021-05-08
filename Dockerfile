@@ -8,8 +8,8 @@ EXPOSE 58444/tcp
 EXPOSE 8555/tcp
 
 VOLUME /root/.chia
-VOLUME /opt/chia_plots_tmp
-VOLUME /opt/chia_plots_final
+VOLUME /opt/chia-plots/tmp
+VOLUME /opt/chia-plots/final
 
 ENV chia_dir="/opt/chia-blockchain"
 ENV start="farmer"
@@ -22,8 +22,8 @@ ENV plots_size=32
 ENV plots_num_threads=2
 ENV plots_farmer_public_key=""
 ENV plots_pool_public_key=""
-ENV plots_tmp_dir="/opt/chia_plots_tmp"
-ENV plots_final_dir="/opt/chia_plots_final"
+ENV plots_tmp_dir="/opt/chia-plots/tmp"
+ENV plots_final_dir="/opt/chia-plots/final"
 ENV plots_options=""
 ENV prevent_sleep=""
 ENV plots_curl_upload="false"
@@ -41,6 +41,7 @@ WORKDIR /opt/chia-blockchain
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY create_plot.sh /usr/local/bin/create_plot.sh
-RUN chmod +x /usr/local/bin/create_plot.sh
+COPY update_plot.sh /usr/local/bin/update_plot.sh
+RUN chmod +x /usr/local/bin/create_plot.sh /usr/local/bin/update_plot.sh
 
 ENTRYPOINT ["bash", "/usr/local/bin/entrypoint.sh"]
