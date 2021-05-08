@@ -8,8 +8,8 @@ EXPOSE 58444/tcp
 EXPOSE 8555/tcp
 
 VOLUME /root/.chia
-VOLUME /opt/chia-plots/tmp
-VOLUME /opt/chia-plots/final
+VOLUME /mnt/chia-plots/tmp
+VOLUME /mnt/chia-plots/final
 
 ENV chia_dir="/opt/chia-blockchain"
 ENV start="farmer"
@@ -22,8 +22,8 @@ ENV plots_size=32
 ENV plots_num_threads=2
 ENV plots_farmer_public_key=""
 ENV plots_pool_public_key=""
-ENV plots_tmp_dir="/opt/chia-plots/tmp"
-ENV plots_final_dir="/opt/chia-plots/final"
+ENV plots_tmp_dir="/mnt/chia-plots/tmp"
+ENV plots_final_dir="/mnt/chia-plots/final"
 ENV plots_options=""
 ENV prevent_sleep=""
 ENV plots_curl_target=""

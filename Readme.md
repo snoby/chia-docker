@@ -14,8 +14,8 @@ Expose TCP ports:
 
 Map volumes:
 - /root/.chia - blockchain, config and potentially keys (mnemonic.txt)
-- /opt/chia-plots/final - plots on storage
-- /opt/chia-plots/tmp - *fast* storage for plotting, add one per device
+- /mnt/chia-plots/final - plots on storage
+- /mnt/chia-plots/tmp - *fast* storage for plotting, add one per device
 
 Possible start values are
 - all
@@ -38,8 +38,8 @@ Other environment variables
 - plots_num_threads - (integer) Default: 2
 - plots_farmer_public_key - (string) Required for plotting, retrieve via *chia keys show*
 - plots_pool_public_key - (string) Required for plotting, retrieve via *chia keys show*
-- plots_tmp_dir - (string) Default: "/opt/chia-plots/tmp", path to temporary plotting directory
-- plots_final_dir - (string) Default: "/opt/chia-plots/final", path to final plots directory
+- plots_tmp_dir - (string) Default: "/mnt/chia-plots/tmp", path to temporary plotting directory
+- plots_final_dir - (string) Default: "/mnt/chia-plots/final", path to final plots directory
 - prevent_sleep - (string) Default: "", Set to *caffeinate -i* on Mac OS to prevent sleep
 - plots_options - (string) Can be used to specify plots options like "--nobitfield"
 - plots_curl_target - (string) Target for curl, e.g. ftp://anonymous@farmer/plots
@@ -49,7 +49,7 @@ Other environment variables
 Plotter startup, prepares the environment without blockchain and keys.
 ```
 docker run --name <container-name> \
-    --volume /path/to/plots:/opt/chia_plots_final --volume /path/to/fast/storage:/plotting \
+    --volume /path/to/plots:/mnt/chia-plots/final --volume /path/to/fast/storage:/mnt/chia-plots/tmp \
     --env start="plotter" \
     --env plots_farmer_public_key="" \
     --env plots_pool_public_key="" \
@@ -75,14 +75,14 @@ docker exec -d <container-name> /usr/local/bin/upload_plot.sh
 Full node startup on mainnet, generating keys
 ```
 docker run --name <container-name> \
-    --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/opt/chia_plots_final \
+    --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/mnt/chia-plots/final \
     -d gldecurtins/chia-docker:latest
 ```
 
 Full node startup on testnet, generating keys
 ```
 docker run --name <container-name>  \
-    --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/opt/chia_plots_final \
+    --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/mnt/chia-plots/final \
     --env testnet="true" \
     -d gldecurtins/chia-docker:latest
 ```
@@ -90,7 +90,7 @@ docker run --name <container-name>  \
 Full node startup on mainnet, use existing keys. E.g. store your words into /path/to/.chia/mnemonic.txt. 
 ```
 docker run --name <container-name> \
-    --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/opt/chia_plots_final \
+    --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/mnt/chia-plots/final \
     --env keys="/root/.chia/mnemonic.txt" \
     -d gldecurtins/chia-docker:latest
 ```
