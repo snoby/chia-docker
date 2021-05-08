@@ -41,7 +41,7 @@ WORKDIR /opt/chia-blockchain
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY create_plot.sh /usr/local/bin/create_plot.sh
-COPY update_plot.sh /usr/local/bin/update_plot.sh
+COPY upload_plot.sh /usr/local/bin/upload_plot.sh
 RUN chmod +x /usr/local/bin/create_plot.sh /usr/local/bin/update_plot.sh
 
 ENTRYPOINT ["bash", "/usr/local/bin/entrypoint.sh"]
