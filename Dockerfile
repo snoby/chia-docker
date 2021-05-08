@@ -32,7 +32,7 @@ ENV plots_curl_target=""
 RUN apt-get update
 RUN apt-get install -y \
     curl jq ansible tar bash ca-certificates git openssl unzip wget sudo acl build-essential apt nfs-common vim htop \
-    python3.8 python3.8-dev python3.8-venv python3.8-distutils python-is-python3
+    python3.9 python3.9-dev python3.9-venv python3.9-distutils python-is-python3
 
 RUN git clone https://github.com/Chia-Network/chia-blockchain.git -b latest --recurse-submodules /opt/chia-blockchain
 RUN cd /opt/chia-blockchain && bash ./install.sh
