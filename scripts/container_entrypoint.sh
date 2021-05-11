@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 init_chia () {
-    update_chia.sh
+    chia_update.sh
 
     cd ${chia_dir}
-    update_chia
     . ./activate
     chia init
 }
