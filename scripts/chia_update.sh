@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 cd ${chia_dir}
-. ./activate
-chia stop -d all
-deactivate
 version_before_fetch=`git log -n1 --format=format:"%H"`
 git fetch
 git checkout latest
