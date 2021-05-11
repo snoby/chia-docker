@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 init_chia () {
-    chia_update.sh
+    if [[ ${chia_update_on_init} == "true" ]]; then
+        chia_update.sh
+    fi
 
     cd ${chia_dir}
     . ./activate

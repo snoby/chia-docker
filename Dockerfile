@@ -12,6 +12,7 @@ VOLUME /mnt/chia-plots/tmp
 VOLUME /mnt/chia-plots/final
 
 ENV chia_dir="/opt/chia-blockchain"
+ENV chia_update_on_init="true"
 ENV start="farmer"
 ENV keys="generate"
 ENV farmer_address="localhost"
