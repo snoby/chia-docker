@@ -33,7 +33,7 @@ Possible start values are
 - simulator
 
 Other environment variables
-- chia_dir - (string) Default: "/chia-blockchain"
+- chia_dir - (string) Default: "/opt/chia-blockchain"
 - plots_size - (integer) Default: 32
 - plots_num - (integer) Default: 1, Number of plots to create
 - plots_num_threads - (integer) Default: 2
