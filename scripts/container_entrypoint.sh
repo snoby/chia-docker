@@ -8,6 +8,8 @@ init_chia () {
     cd ${chia_dir}
     . ./activate
     chia init
+
+    sed -i 's/localhost/127.0.0.1/g' ~/.chia/mainnet/config/config.yaml
 }
 
 init_network () {
