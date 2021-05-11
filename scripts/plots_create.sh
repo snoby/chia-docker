@@ -14,6 +14,8 @@ plots_creating=`ps -ef | grep "plots create" | grep "${plots_tmp_dir}" | grep -v
 if [[ ${plots_creating} -ge 1 ]]; then
     echo "plots create running on ${plots_tmp_dir}"
 else
+    chia_update.sh
+
     plots_date=`date +%Y-%m-%d-%H-%M`
     plots_id="plot-k${plots_size}-${plots_date}"
 

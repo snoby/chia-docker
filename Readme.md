@@ -35,6 +35,7 @@ Possible start values are
 Other environment variables
 - chia_dir - (string) Default: "/chia-blockchain"
 - plots_size - (integer) Default: 32
+- plots_num - (integer) Default: 1, Number of plots to create
 - plots_num_threads - (integer) Default: 2
 - plots_farmer_public_key - (string) Required for plotting, retrieve via *chia keys show*
 - plots_pool_public_key - (string) Required for plotting, retrieve via *chia keys show*
@@ -58,18 +59,18 @@ docker run --name <container-name> \
 
 Plotting task has to be triggered manually, output to be found in the plotting directory.
 ```
-docker exec -d <container-name> /usr/local/bin/create_plot.sh
+docker exec -d <container-name> /usr/local/bin/plots_create.sh
 ```
 
 Plotting with multiple tasks, using different storage devices. Volumes to be mapped accordingly.
 ```
-docker exec -d <container-name> /usr/local/bin/create_plot.sh /mnt/storage1
-docker exec -d <container-name> /usr/local/bin/create_plot.sh /mnt/storage2
+docker exec -d <container-name> /usr/local/bin/plots_create.sh /mnt/storage1
+docker exec -d <container-name> /usr/local/bin/plots_create.sh /mnt/storage2
 ```
 
 If required, upload finished plots to farmer. Specify plots_curl_target and execute the script.
 ```
-docker exec -d <container-name> /usr/local/bin/upload_plot.sh
+docker exec -d <container-name> /usr/local/bin/plots_upload.sh
 ```
 
 Full node startup on mainnet, generating keys
@@ -107,3 +108,5 @@ docker exec -it <container-name> venv/bin/chia show -s -c
 3. Executing the scripts via cron requires [extra permissions on Mac OS](https://osxdaily.com/2020/04/27/fix-cron-permissions-macos-full-disk-access/).
 4. I had to use *docker buildx* to create the arm64 version. Docker Hub does not easily create arm64 images.
 5. I should try to keep the Docker ENV stable - but sometimes the variable names just do not add up.
+6. Executing the scripts via cron on Mac OS X is very slow as it will run with Background priority. Use launchd instead and set ProcessType to Interactive.
+7. Uploading via ftp seems the most reliable to me, curlftpfs didn't work and is more complicated to setup.

@@ -1,19 +1,9 @@
 #!/usr/bin/env bash
 
-update_chia () {
-    version_before_fetch=`git log -n1 --format=format:"%H"`
-    git fetch
-    git checkout latest
-    git reset --hard FETCH_HEAD
-    git status
-    version_after_fetch=`git log -n1 --format=format:"%H"`
-
-    if [[ ${version_before_fetch} != ${version_after_fetch} ]]; then
-        bash ./install.sh
-    fi
-}
-
 init_chia () {
+
+    update_chia.sh
+
     cd ${chia_dir}
     update_chia
     . ./activate
