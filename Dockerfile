@@ -41,8 +41,9 @@ RUN cd /opt/chia-blockchain && bash ./install.sh
 WORKDIR /opt/chia-blockchain
 
 COPY scripts/container_entrypoint.sh /usr/local/bin/container_entrypoint.sh
+COPY scripts/chia_update.sh /usr/local/bin/chia_update.sh
 COPY scripts/plots_create.sh /usr/local/bin/plots_create.sh
 COPY scripts/plots_upload.sh /usr/local/bin/plots_upload.sh
-RUN chmod +x /usr/local/bin/create_plot.sh /usr/local/bin/upload_plot.sh
+RUN chmod +x /usr/local/bin/chia_update.sh /usr/local/bin/plots_create.sh /usr/local/bin/plots_upload.sh
 
 ENTRYPOINT ["bash", "/usr/local/bin/container_entrypoint.sh"]
