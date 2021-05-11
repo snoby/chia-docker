@@ -9,6 +9,15 @@ init_chia () {
 }
 
 init_network () {
+    if [[ ${start} == 'harvester' ]]; then
+        if [[ -z ${farmer_address} || -z ${farmer_port} ]]; then
+            echo "A farmer_address and farmer_port are required to start a harvester."
+            exit
+        else
+            chia configure --set-farmer-peer ${farmer_address}:${farmer_port}
+        fi
+    fi
+
     if [[ ${testnet} == "true" ]]; then
         if [[ -z $full_node_port || $full_node_port == "null" ]]; then
             chia configure --set-fullnode-port 58444
