@@ -29,6 +29,7 @@ ENV plots_options=""
 ENV prevent_sleep=""
 ENV plots_curl_target=""
 
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 RUN apt-get install -y \
     curl jq ansible tar bash ca-certificates git openssl unzip wget sudo acl build-essential apt nfs-common vim htop \
