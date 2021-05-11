@@ -45,7 +45,24 @@ Other environment variables
 - plots_options - (string) Can be used to specify plots options like "--nobitfield"
 - plots_curl_target - (string) Target for curl, e.g. ftp://anonymous@farmer/plots
 
-### Examples
+## Scripts
+
+### chia_update.sh
+Bash shell script to fetch the latest version of chia-blockchain.
+If there is a new version, then the official install.sh script will be executed.
+
+### container_entrypoint.sh
+This script is executed uppon container start.
+
+### plots_create.sh <plots_tmp_dir>
+Script to trigger a plot creation process. Most parameters will be taken from the environment, plots_tmp_dir can be overwritten as first argument.
+The script checks if there is already a plotting process running on given plots_tmp_dir.
+
+### plots_upload.sh <plots_final_dir>
+Helper script to upload finished plots using curl. In my case I upload it to a ftp server.
+The script will exit if there is already a curl upload running on given plots_final_dir.
+
+## Examples
 
 Plotter startup, prepares the environment without blockchain and keys.
 ```
