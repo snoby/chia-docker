@@ -27,7 +27,7 @@ else
     # Create new plot
     echo "Creating plot into temporary directory ${plots_tmp_dir}/${plots_id}."
     echo "Final directory ${plots_final_dir}."
-    ${prevent_sleep} chia plots create \
+    eval ${prevent_sleep} chia plots create \
         --tmp_dir ${plots_tmp_dir}/${plots_id} \
         --final_dir ${plots_final_dir} \
         --size ${plots_size} \

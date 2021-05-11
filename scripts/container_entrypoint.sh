@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 init_chia () {
-
     update_chia.sh
 
     cd ${chia_dir}
