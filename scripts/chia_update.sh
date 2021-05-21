@@ -4,7 +4,7 @@ cd ${chia_dir}
 version_before_fetch=`git log -n1 --format=format:"%H"`
 git fetch
 git checkout latest
-git reset --hard FETCH_HEAD
+git reset --hard latest
 git status
 version_after_fetch=`git log -n1 --format=format:"%H"`
 
