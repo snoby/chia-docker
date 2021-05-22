@@ -21,7 +21,7 @@ process_available () {
 enough_space_available () {
     enough_space_available_return=0
 
-    POSIXLY_CORRECT=true
+    export POSIXLY_CORRECT=true
     free_space_tmp_dir_512_blocks=`df -P ${plots_tmp_dir} | sed '1d' | awk '{print $4}'`
     free_space_tmp_dir_gb=`expr ${free_space_tmp_dir_512_blocks} / 2097152`
     [[ ${plots_size} -eq 32 && ${free_space_tmp_dir_gb} -le 257 ]]  && enough_space_available_return=1
