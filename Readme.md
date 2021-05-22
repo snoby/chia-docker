@@ -16,6 +16,7 @@ Map volumes:
 - /root/.chia - blockchain, config and potentially keys (mnemonic.txt)
 - /mnt/chia-plots/final - plots on storage
 - /mnt/chia-plots/tmp - *fast* storage for plotting, add one per device
+- /mt/passed-ca - passed in CA, copied from your main node.
 
 Possible start values are
 - all
@@ -44,6 +45,7 @@ Other environment variables
 - prevent_sleep - (string) Default: "", Set to *caffeinate -i* on Mac OS to prevent sleep
 - plots_options - (string) Can be used to specify plots options like "--nobitfield"
 - plots_curl_target - (string) Target for curl, e.g. ftp://anonymous@farmer/plots
+- CA_PROVIDED -(string) true or false, if true we will check the /mnt/passed-ca directory for your ca keys to be imported.
 
 ## Scripts
 
@@ -105,7 +107,7 @@ docker run --name <container-name>  \
     -d gldecurtins/chia-docker:latest
 ```
 
-Full node startup on mainnet, use existing keys. E.g. store your words into /path/to/.chia/mnemonic.txt. 
+Full node startup on mainnet, use existing keys. E.g. store your words into /path/to/.chia/mnemonic.txt.
 ```
 docker run --name <container-name> \
     --volume /path/to/.chia:/root/.chia --volume /path/to/plots:/mnt/chia-plots/final \

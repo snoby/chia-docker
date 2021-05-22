@@ -10,6 +10,7 @@ EXPOSE 8555/tcp
 VOLUME /root/.chia
 VOLUME /mnt/chia-plots/tmp
 VOLUME /mnt/chia-plots/final
+VOLUME /mnt/passed-ca
 
 ENV chia_dir="/opt/chia-blockchain"
 ENV chia_update_on_init="true"
@@ -29,6 +30,7 @@ ENV plots_final_dir="/mnt/chia-plots/final"
 ENV plots_options=""
 ENV prevent_sleep=""
 ENV plots_curl_target=""
+ENV CA_PROVIDED="false"
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update

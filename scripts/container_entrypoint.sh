@@ -7,9 +7,19 @@ init_chia () {
 
     cd ${chia_dir}
     . ./activate
+
     chia init
+    #
+    #If the user is using us in multimachine mode we need his ca, he has passed it in we must import the ca into our config
+    #
+
+    if [[ "${CA_PROVIDED}" == "true" ]]; then
+        echo "CA has been provided, importing..."
+        chia init -c /mnt/passed-ca
+    fi
 
     sed -i 's/localhost/127.0.0.1/g' ~/.chia/mainnet/config/config.yaml
+
 }
 
 init_network () {
@@ -36,7 +46,8 @@ init_keys () {
         echo "To use your own keys pass them as a text file. Generating keys now."
         chia keys generate
     else
-        chia keys add -f ${keys}
+        echo "adding keys from mnemonic"
+        chia keys add -f "${keys}"
     fi
 }
 
