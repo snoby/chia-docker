@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set +x
 
 init_chia () {
     if [[ ${chia_update_on_init} == "true" ]]; then
@@ -46,7 +47,7 @@ init_keys () {
         echo "To use your own keys pass them as a text file. Generating keys now."
         chia keys generate
     else
-        echo "adding keys from mnemonic"
+	echo "adding keys from mnemonic"
         chia keys add -f "${keys}"
     fi
 }
@@ -57,9 +58,11 @@ init_plots () {
 
 case ${start} in
     null|none|plotter)
+	echo "Setting up for just plotter"
         init_chia
     ;;
     *)
+	echo "Starting everything"
         init_chia
         init_network
         init_keys

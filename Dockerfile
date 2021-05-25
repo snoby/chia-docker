@@ -1,5 +1,8 @@
-FROM ubuntu:hirsute
-
+FROM ubuntu:20.04
+#
+# Version ofCHIA tree should be passed in via build-args
+#
+ARG CHIA_VERSION=latest
 # mainnet
 EXPOSE 8444/tcp
 # testnet
@@ -35,10 +38,10 @@ ENV CA_PROVIDED="false"
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 RUN apt-get install -y \
-    bash git apt curl htop lsb-release sudo \
+    bash git apt curl  lsb-release sudo \
     python3.9 python3.9-dev python3.9-venv python3.9-distutils python-is-python3
 
-RUN git clone https://github.com/Chia-Network/chia-blockchain.git -b latest --recurse-submodules /opt/chia-blockchain
+RUN git clone https://github.com/Chia-Network/chia-blockchain.git -b $CHIA_VERSION --recurse-submodules /opt/chia-blockchain
 RUN cd /opt/chia-blockchain && bash ./install.sh
 
 WORKDIR /opt/chia-blockchain
