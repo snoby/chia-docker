@@ -71,4 +71,18 @@ case ${start} in
     ;;
 esac
 
-while true; do sleep 30; done;
+
+#
+# Make it so that we actually shutdown properly
+#
+cleanup() {
+    echo "Cleaning up..."
+    chia stop ${start}
+    exit
+}
+
+trap cleanup INT TERM
+
+while :; do
+    sleep 1s
+done

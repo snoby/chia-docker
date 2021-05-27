@@ -47,12 +47,6 @@ ready_to_plot () {
         return 1
     fi
 
-    if ! process_available; then
-        echo "INFO: Plots create running on ${plots_tmp_dir}."
-        script_exit=0
-        return 1
-    fi
-
     if ! enough_space_available; then
         echo "ERROR: Not enough space on ${plots_tmp_dir}."
         script_exit=1
@@ -79,7 +73,7 @@ if ready_to_plot; then
         --farmer_public_key ${plots_farmer_public_key} \
         --pool_public_key ${plots_pool_public_key} \
         ${plots_options} > ${plots_tmp_dir}/${plots_id}.txt
-    
+
     rm -rf ${plots_tmp_dir}/${plots_id}
 else
     echo "INFO: Not triggering plots create."
