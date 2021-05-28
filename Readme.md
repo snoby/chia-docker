@@ -32,6 +32,7 @@ Possible start values are
 - wallet-only
 - introducer
 - simulator
+- plotman
 
 Other environment variables
 - chia_dir - (string) Default: "/opt/chia-blockchain"
@@ -47,11 +48,64 @@ Other environment variables
 - plots_curl_target - (string) Target for curl, e.g. ftp://anonymous@farmer/plots
 - CA_PROVIDED -(string) true or false, if true we will check the /mnt/passed-ca directory for your ca keys to be imported.
 
-## Scripts
+## Running as farmer
 
-### chia_update.sh
-Bash shell script to fetch the latest version of chia-blockchain.
-If there is a new version, then the official install.sh script will be executed.
+
+```
+docker run -d\
+	--name="$NAME"                              \
+	-v `pwd`/config/:/root/.chia                \
+	-v "$FARM_STORAGE":/mnt/chia-plots/final    \
+	-v "$CA_DIR":/mnt/passed-ca:ro              \
+	-v `pwd`/mnemonic.txt:/tmp/mnemonic.txt:ro  \
+	-e keys="/tmp/mnemonic.txt"                \
+	-e CA_PROVIDED=true                         \
+	-e chia_update_on_init=false                \
+	-e start="farmer"                           \
+	-P                                          \
+	"${CONT_NAME}"
+
+```
+Where `CA_DIR` contains the copied CA certificates from the main system.
+
+## Running Plotman (Experimental)
+#!/bin/bash
+set +x
+source source_keys.sh
+
+FAST_STORAGE=/mnt/disk/
+ICE_STORAGE=/mnt/farm2/
+CONT_NAME=iotapi322/chia:0.2-1.1.6
+NAME=plotman
+
+# COPY OF YOUR INITIAL INSTALL ca directory
+```
+CA_DIR=/home/snoby/chia_ca
+
+docker stop $NAME
+docker rm $NAME
+
+docker run -d\
+	--name="$NAME"   \
+	-v "$FAST_STORAGE":/mnt/chia-plots/tmp   \
+	-v "$ICE_STORAGE":/mnt/chia-plots/final   \
+	-v "$CA_DIR":/mnt/passed-ca:ro              \
+	-v `pwd`/mnemonic.txt:/tmp/mnemonic.txt:ro              \
+	-v `pwd`/plotman.yaml:/root/.config/plotman/plotman.yaml \
+	-e keys="/tmp/mnemonic.txt"                   \
+	-e CA_PROVIDED=true                      \
+	-e chia_update_on_init=false             \
+	-e farmer_address=10.0.0.116           \
+	-e farmer_port=8444                    \
+	-e plots_farmer_public_key="$FARM_KEY" \
+    -e plots_pool_public_key="$POOL_KEY" \
+	-e start="plotman"                       \
+	"${CONT_NAME}"
+```
+You need to have the  mnemonic file, the CA_DIR, and a copy of plotman.yaml volume mounted
+(NOTE): The paths for plotman have to be for INSIDE the container not on the host.
+
+## Scripts
 
 ### container_entrypoint.sh
 This script is executed uppon container start.
@@ -120,12 +174,3 @@ Status from outside the container
 docker exec -it <container-name> venv/bin/chia show -s -c
 ```
 
-## Lessons learned
-
-1. I prefer executing the plotting outside of the Docker container, as the mapped Volumes offer degraded performance. Is there a better way to map the folders?
-2. To prevent the Apple M1 Mac from sleep I use caffeinate.
-3. Executing the scripts via cron requires [extra permissions on Mac OS](https://osxdaily.com/2020/04/27/fix-cron-permissions-macos-full-disk-access/).
-4. I had to use *docker buildx* to create the arm64 version. Docker Hub does not easily create arm64 images.
-5. I should try to keep the Docker ENV stable - but sometimes the variable names just do not add up.
-6. Executing the scripts via cron on Mac OS X is very slow as it will run with Background priority. Use launchd instead and set ProcessType to Interactive.
-7. Uploading via ftp seems the most reliable to me, curlftpfs didn't work and is more complicated to setup.

@@ -56,10 +56,32 @@ init_plots () {
     chia plots add -d ${plots_final_dir}
 }
 
+init_plotman(){
+
+PLOTMAN_CONFIG=/root/.config/plotman/plotman.yaml
+#
+# We assume that chia init has already
+# taken place.
+# Need to have,everything you normmally would for plotting along with
+# the plotman config.
+if [ ! -f "${PLOTMAN_CONFIG}" ]; then
+    echo "You must have a plotman config bind mounted to ${PLOTMAN_CONFIG}"
+    exit 1
+fi
+
+    plotman plot
+
+}
+
 case ${start} in
     null|none|plotter)
 	echo "Setting up for just plotter"
         init_chia
+    ;;
+    plotman)
+        init_chia
+        init_keys
+        init_plotman
     ;;
     *)
 	echo "Starting everything"

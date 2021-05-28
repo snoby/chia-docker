@@ -11,12 +11,12 @@ EXPOSE 58444/tcp
 EXPOSE 8555/tcp
 
 VOLUME /root/.chia
+VOLUME /root/.config/plotman/config.yaml
 VOLUME /mnt/chia-plots/tmp
 VOLUME /mnt/chia-plots/final
 VOLUME /mnt/passed-ca
 
 ENV chia_dir="/opt/chia-blockchain"
-ENV chia_update_on_init="true"
 ENV start="farmer"
 ENV keys="generate"
 ENV farmer_address="localhost"
@@ -44,12 +44,25 @@ RUN apt-get install -y \
 RUN git clone https://github.com/Chia-Network/chia-blockchain.git -b $CHIA_VERSION --recurse-submodules /opt/chia-blockchain
 RUN cd /opt/chia-blockchain && bash ./install.sh
 
+
 WORKDIR /opt/chia-blockchain
 
+#
+# Setup Docker container to use VIRTUAL ENV
+#
+ENV VIRTUAL_ENV=/opt/chia-blockchain/venv
+RUN python3 -m venv ${VIRTUAL_ENV}
+ENV PATH="${VIRTUAL_ENV}/bin:$PATH"
+
+#
+# No need to source venv any more
+#
+
+RUN pip install --force-reinstall git+https://github.com/ericaltendorf/plotman@main
+
 COPY scripts/container_entrypoint.sh /usr/local/bin/container_entrypoint.sh
-COPY scripts/chia_update.sh /usr/local/bin/chia_update.sh
 COPY scripts/plots_create.sh /usr/local/bin/plots_create.sh
 COPY scripts/plots_upload.sh /usr/local/bin/plots_upload.sh
-RUN chmod +x /usr/local/bin/chia_update.sh /usr/local/bin/plots_create.sh /usr/local/bin/plots_upload.sh
+RUN chmod +x /usr/local/bin/plots_create.sh /usr/local/bin/plots_upload.sh
 
 ENTRYPOINT ["bash", "/usr/local/bin/container_entrypoint.sh"]
