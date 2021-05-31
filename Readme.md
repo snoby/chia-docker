@@ -69,6 +69,7 @@ docker run -d\
 Where `CA_DIR` contains the copied CA certificates from the main system.
 
 ## Running Plotman (Experimental)
+```
 #!/bin/bash
 set +x
 source source_keys.sh
@@ -79,7 +80,7 @@ CONT_NAME=iotapi322/chia:0.2-1.1.6
 NAME=plotman
 
 # COPY OF YOUR INITIAL INSTALL ca directory
-```
+
 CA_DIR=/home/snoby/chia_ca
 
 docker stop $NAME
