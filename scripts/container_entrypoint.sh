@@ -102,14 +102,15 @@ esac
 cleanup() {
     echo "Cleaning up..."
     case ${start} in
-    plotman)
-        echo "Shutting down plotman"
-        exit
-    ;;
-    *)
-        chia stop ${start}
-        exit
-    ;;
+        plotman)
+            echo "Shutting down plotman"
+            exit
+        ;;
+        *)
+            chia stop ${start}
+            exit
+        ;;
+    esac
 }
 
 trap cleanup INT TERM

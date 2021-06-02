@@ -1,6 +1,6 @@
 #!/bin/bash
 
 export CHIA_VERSION=1.1.6
-export MY_VERSION=0.2
+export MY_VERSION=0.3
 export VERSION=${MY_VERSION}-${CHIA_VERSION}
 export CONTAINER_NAME_LATEST="iotapi322/chia:${VERSION}"
