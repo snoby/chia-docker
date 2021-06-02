@@ -68,8 +68,10 @@ if [ ! -f "${PLOTMAN_CONFIG}" ]; then
     echo "You must have a plotman config bind mounted to ${PLOTMAN_CONFIG}"
     exit 1
 fi
-
-    plotman plot
+    #
+    # Background the plotter
+    #
+    plotman plot &
 
 }
 
@@ -99,8 +101,15 @@ esac
 #
 cleanup() {
     echo "Cleaning up..."
-    chia stop ${start}
-    exit
+    case ${start} in
+    plotman)
+        echo "Shutting down plotman"
+        exit
+    ;;
+    *)
+        chia stop ${start}
+        exit
+    ;;
 }
 
 trap cleanup INT TERM
